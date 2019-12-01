@@ -1,12 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-import headerLogo from '../img/header-logo.png';
+import { useDispatch } from 'react-redux';
+
+import { errorNull } from '../actions/actionCreators';
+
+
 
 export default function Header() {
+    const dispatch = useDispatch();
 
     let active = {
         color: '#ff0000',
+    }
+
+    const nullError = () => {
+        dispatch(errorNull());
     }
 
     return (
@@ -17,13 +26,13 @@ export default function Header() {
                         <h5>Информация</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/catalog">Каталог</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={nullError}>Каталог</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/about">О магазине</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={nullError}>О магазине</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/contacts">Контакты</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={nullError}>Контакты</NavLink>
                             </li>
                         </ul>
                     </section>

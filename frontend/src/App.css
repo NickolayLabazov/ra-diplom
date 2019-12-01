@@ -141,7 +141,8 @@ section {
 
 /* Preloader */
 .preloader {
-  margin: 10px auto;  
+  margin: 10px auto; 
+  margin-top: 100px; 
   position: relative;
   width: 30px;
   height: 30px;
@@ -200,7 +201,11 @@ section {
   font-size: 1.3rem;
   margin-bottom: 2em;
 }
+
 .catalog-item-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;  
   margin-bottom: 1em;
 }
 
@@ -460,12 +465,14 @@ section {
 }
 
 .catalog-item-card {
+  height: 100%;
   margin-bottom: 1em;
 }
 
 .catalog-item-size {
   display: inline-block;
   padding: 0 10px;
+  cursor: pointer;
 }
 
 .catalog-item-size.selected {
@@ -493,8 +500,8 @@ section {
   box-shadow: none;
 }
 
-.row{
-display: flex;
+.col-4{
+  margin-top: 10px;
 }
 
 /* Footer */
@@ -590,6 +597,18 @@ h2, .h2 {
 .btn-outline-primary:hover {
   background-color: #727e86;
   border-color: #727e86;
+}
+
+/* Card */
+
+.card-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.btn{
+  margin-top: 10px;
 }
 
 

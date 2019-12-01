@@ -1,9 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-import headerLogo from '../img/header-logo.png';
-
-
 
 export default function Contacts() {
     return (

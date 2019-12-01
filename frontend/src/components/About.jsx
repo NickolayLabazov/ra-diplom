@@ -1,23 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-import headerLogo from '../img/header-logo.png';
-
-
 
 export default function About() {
     return (
         <main className="container">
-        <div className="row">
-            <div className="col">                
+            <div className="row">
+                <div className="col">
 
-                <section className="top-sales">
-                    <h2 className="text-center">О магазине</h2>
-                    <p>
-                        В Интернете можно встретить немало магазинов, предлагающих аксессуары. Но именно к нам хочется
-                        возвращаться снова и снова.
+                    <section className="top-sales">
+                        <h2 className="text-center">О магазине</h2>
+                        <p>
+                            В Интернете можно встретить немало магазинов, предлагающих аксессуары. Но именно к нам хочется
+                            возвращаться снова и снова.
                     </p>
-                    <p className="h4 text-center">Мы предлагаем вам особые условия:</p>
+                        <p className="h4 text-center">Мы предлагаем вам особые условия:</p>
                         <ol>
                             <li>Индивидуальный подход специалиста. Когда поступает новая коллекция обуви весна-лето или
                                 же коллекция обуви осень-зима – покупателям бывает трудно сориентироваться во всем
@@ -37,9 +32,9 @@ export default function About() {
                             туфли. Сделав заказ в нашем интернет-магазине, вы сможете быть модным и стильным как
                             осенью-зимой, так и весной-летом. Просто наберите номер нашего телефона, и мы поможем вам
                             определиться с покупкой. </p>
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
     );
 }
