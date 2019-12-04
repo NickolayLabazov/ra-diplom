@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import headerLogo from '../img/header-logo.png';
 import { changeHeaderSearch, changeForm, fetchSearch, errorNull } from '../actions/actionCreators';
 
-export default function Header() {
+export default function HeaderPage() {
     const dispatch = useDispatch();
-    const { headerSearch, formValue, category, cart } = useSelector(state => state.storeState);
+    const { headerSearch, formValue, category } = useSelector(state => state.storeState);
+    const { cart } = useSelector(state => state.cartState);
 
     let active = {
         color: '#ff0000',
@@ -21,15 +22,15 @@ export default function Header() {
         }
     }
 
-    const inputChange = (event) => {
+    const handleInputChange = (event) => {
         dispatch(changeForm(event.target.value, event.target.name))
     }
 
-    const formSubmit = (event) => {
+    const handleFormSubmit = (event) => {
         event.preventDefault();
     }
 
-    const nullError = () => {
+    const reseError = () => {
         dispatch(errorNull());
     }
 
@@ -39,15 +40,15 @@ export default function Header() {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                            <Link className="navbar-brand" to="/" onClick={nullError}>
+                            <Link className="navbar-brand" to="/" onClick={reseError}>
                                 <img src={headerLogo} alt="Bosa Noga" />
                             </Link>
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <nav className="navbar-nav mr-auto">
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/" onClick={nullError}>Главная</NavLink>
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={nullError}>Каталог</NavLink>
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={nullError}>О магазине</NavLink>
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={nullError}>Контакты</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/" onClick={reseError}>Главная</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={reseError}>Каталог</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={reseError}>О магазине</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={reseError}>Контакты</NavLink>
                                 </nav>
                                 <div>
                                     <div className="header-controls-pics">
@@ -57,14 +58,14 @@ export default function Header() {
                                         }
 
 
-                                        <Link to='/cart' className="header-controls-pic header-controls-cart" onClick={nullError}>
+                                        <Link to='/cart' className="header-controls-pic header-controls-cart" onClick={reseError}>
                                             {cart.length > 0 ?
                                                 <div className="header-controls-cart-full">{cart.length}</div> : null}
                                             <div className="header-controls-cart-menu"></div>
                                         </Link>
                                     </div>
-                                    <form onSubmit={formSubmit} data-id="search-form" className={`header-controls-search-form form-inline ${headerSearch ? 'invisible' : null}`}>
-                                        <input name='formValue' value={formValue} onChange={inputChange} className="form-control" placeholder="Поиск" />
+                                    <form onSubmit={handleFormSubmit} data-id="search-form" className={`header-controls-search-form form-inline ${headerSearch ? 'invisible' : null}`}>
+                                        <input name='formValue' value={formValue} onChange={handleInputChange} className="form-control" placeholder="Поиск" />
                                     </form>
                                 </div>
                             </div>

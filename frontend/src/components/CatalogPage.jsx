@@ -7,15 +7,15 @@ import BtnLoad from './BtnLoad.jsx';
 
 import { changeForm, fetchSearch } from '../actions/actionCreators';
 
-export default function Catalog() {
+export default function CatalogPage() {
     const dispatch = useDispatch();
     const { catalog, catalogValue, category } = useSelector(state => state.storeState);
 
-    const inputChange = (event) => {
+    const handleInputChange = (event) => {
         dispatch(changeForm(event.target.value, event.target.name))
     }
 
-    const formSubmit = (event) => {
+    const handleFormSubmit = (event) => {
         event.preventDefault();
         dispatch(fetchSearch(category, catalogValue));
     }
@@ -28,8 +28,8 @@ export default function Catalog() {
 
                         <section className="catalog">
                             <h2 className="text-center">Каталог</h2>
-                            <form onSubmit={formSubmit} className="catalog-search-form form-inline">
-                                <input name='catalogValue' value={catalogValue} onChange={inputChange} className="form-control" placeholder="Поиск" />
+                            <form onSubmit={handleFormSubmit} className="catalog-search-form form-inline">
+                                <input name='catalogValue' value={catalogValue} onChange={handleInputChange} className="form-control" placeholder="Поиск" />
                             </form>
                             {
                                 <>

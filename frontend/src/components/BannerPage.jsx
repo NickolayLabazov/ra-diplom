@@ -2,7 +2,7 @@ import React from 'react';
 
 import banner from '../img/banner.jpg';
 
-export default function MainContainer() {
+export default function BannerPage() {
     return (
         <>
             <main className="container">

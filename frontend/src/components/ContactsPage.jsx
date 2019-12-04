@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Contacts() {
+export default function ContactsPage() {
     return (
         <main className="container">
             <div className="row">

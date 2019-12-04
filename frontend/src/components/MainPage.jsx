@@ -6,7 +6,7 @@ import ProductBox from './ProductBox.jsx';
 import CatalogCategories from './CatalogCategories.jsx';
 import BtnLoad from './BtnLoad.jsx';
 
-export default function MainContainer() {
+export default function MainPage() {
     const { loadingTopSales, loadingCatalog, topSales, catalog, } = useSelector(state => state.storeState);
     return (
         <>

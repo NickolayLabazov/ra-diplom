@@ -6,10 +6,10 @@ import Preloader from './Preloader.jsx';
 
 import { productSize, increaseNumber, lowerNumber, addCart } from '../actions/actionCreators';
 
-export default function Product() {
-    const dispatch = useDispatch();
-    const { product, selectSize, selectNumber, loadingProduct } = useSelector(state => state.storeState);
-
+export default function ProductPage() {
+    const dispatch = useDispatch();   
+    const { product, selectSize, selectNumber, loadingProduct } = useSelector(state => state.cartState);
+    
     const selectProductSize = (size) => {
         dispatch(productSize(size))
     }
@@ -22,7 +22,7 @@ export default function Product() {
         dispatch(lowerNumber())
     }
 
-    const toCart = (prod) => {
+    const writeToCart = (prod) => {
         dispatch(addCart(prod))
     }
 
@@ -95,7 +95,7 @@ export default function Product() {
                                                     </span>
                                                     </p>
                                                     {selectSize != null ?
-                                                        <Link to='/cart' onClick={() => toCart(prodToCart)} className="btn btn-danger btn-block btn-lg">В корзину</Link>
+                                                        <Link to='/cart' onClick={() => writeToCart(prodToCart)} className="btn btn-danger btn-block btn-lg">В корзину</Link>
                                                         : null}
                                                 </>
                                                 : null}

@@ -5,16 +5,14 @@ import { useDispatch } from 'react-redux';
 
 import { errorNull } from '../actions/actionCreators';
 
-
-
-export default function Header() {
+export default function FooterPage() {
     const dispatch = useDispatch();
 
     let active = {
         color: '#ff0000',
     }
 
-    const nullError = () => {
+    const resetError = () => {
         dispatch(errorNull());
     }
 
@@ -26,13 +24,13 @@ export default function Header() {
                         <h5>Информация</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={nullError}>Каталог</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={resetError}>Каталог</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={nullError}>О магазине</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={resetError}>О магазине</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={nullError}>Контакты</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={resetError}>Контакты</NavLink>
                             </li>
                         </ul>
                     </section>

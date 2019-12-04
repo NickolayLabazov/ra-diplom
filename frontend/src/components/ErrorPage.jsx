@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Error404() {
+export default function ErrorPage() {
     return (
         <>
             <main className="container">

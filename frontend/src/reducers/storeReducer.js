@@ -9,20 +9,8 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATALOG_MORE,
   CHANGE_CATEGORY,
-  CHANGE_HEADER_SEARCH,
+  CHANGE_HEADER_SEARCH,   
   CHANGE_FORM,
-  FETCH_PRODUCT_REQUEST,
-  FETCH_PRODUCT_SUCCESS,
-  FETCH_PRODUCT_FAILURE,
-  PRODUCT_SIZE,
-  INCREASE_NUMBER,
-  LOWER_NUMBER,
-  ADD_CART,
-  REMOVE_PROD,
-  I_AGREE,
-  FETCH_ORDER_SUCCESS,
-  FETCH_ORDER_REQUEST,
-  FETCH_ORDER_FAILURE,
   ERROR_NULL
 } from '../actions/actionCreators';
 
@@ -31,25 +19,15 @@ const initialState = {
   categories: [{
     id: 16,
     title: 'Все'
-  }],
-  cart: [],
-  product: {},
+  }],  
   category: 16,
   catalog: [],
   formValue: '',
-  catalogValue: '',
-  address: '',
-  phone: '',
-  selectSize: null,
-  selectNumber: 1,
+  catalogValue: '', 
   loadingTopSales: false,
-  loadingCatalog: false,
-  loadingProduct: false,
-  loadingOrder: false,
+  loadingCatalog: false,    
   btnLoadMore: true,
-  headerSearch: true,
-  isAgree: false,
-  orderSuccess: false,
+  headerSearch: true, 
   error: null,
 };
 
@@ -66,19 +44,7 @@ export default function storeReducer(state = initialState, action) {
         ...state,
         loadingCatalog: true,
         error: null,
-      }
-    case FETCH_PRODUCT_REQUEST:
-      return {
-        ...state,
-        loadingProduct: true,
-        error: null,
-      }
-    case FETCH_ORDER_REQUEST:
-      return {
-        ...state,
-        loadingOrder: true,
-        error: null,
-      }
+      }   
     case FETCH_TOP_FAILURE:
       const { errorTop } = action.payload;
       return {
@@ -92,28 +58,12 @@ export default function storeReducer(state = initialState, action) {
         ...state,
         loadingCatalog: false,
         error: errorCatalog
-      }
-    case FETCH_PRODUCT_FAILURE:
-      const { errorProduct } = action.payload;
-      return {
-        ...state,
-        loadingProduct: false,
-        error: errorProduct
-      }
+      }    
     case FETCH_CATEGORIES_FAILURE:
       const { errorCategories } = action.payload;
       return {
         ...state,
         error: errorCategories
-      }
-    case FETCH_ORDER_FAILURE:
-      const { errorOrder } = action.payload;
-      return {
-        ...state,
-        loadingOrder: false,
-        error: errorOrder,
-        address: '',
-        phone: '',
       }
     case FETCH_TOP_SUCCESS:
       const { topSales } = action.payload;
@@ -130,17 +80,7 @@ export default function storeReducer(state = initialState, action) {
         catalog,
         loadingCatalog: false,
         error: null,
-      };
-    case FETCH_PRODUCT_SUCCESS:
-      const { product } = action.payload;
-      return {
-        ...state,
-        product,
-        loadingProduct: false,
-        error: null,
-        selectSize: null,
-        selectNumber: 1,
-      };
+      };    
     case FETCH_CATEGORIES_SUCCESS:
       const { categories } = action.payload;
       return {
@@ -180,64 +120,7 @@ export default function storeReducer(state = initialState, action) {
       return {
         ...state,
         [name]: value,
-      }
-    case PRODUCT_SIZE:
-      const { size } = action.payload;
-      return {
-        ...state,
-        selectSize: size,
-      }
-    case INCREASE_NUMBER:
-      return {
-        ...state,
-        selectNumber: state.selectNumber < 10 ? state.selectNumber + 1 : state.selectNumber,
-      }
-    case LOWER_NUMBER:
-      return {
-        ...state,
-        selectNumber: state.selectNumber > 1 ? state.selectNumber - 1 : state.selectNumber,
-      }
-    case ADD_CART:
-      const { prod } = action.payload;
-      const index = state.cart.indexOf(state.cart.filter(o => o.id == prod.id).filter(o => o.size = prod.size)[0]);      
-      if (index === -1) {
-        return {
-          ...state,
-          cart: state.cart.concat([prod]),
-          selectSize: null,
-          selectNumber: 1,
-        }
-      } else {
-        return {
-          ...state,
-          cart: state.cart.map(product =>
-            (product.id === prod.id) && (product.size === prod.size) ?
-              { ...product, number: prod.number + product.number } : product),
-          selectSize: null,
-          selectNumber: 1,
-        }
-      }
-    case REMOVE_PROD:
-      const { removeId } = action.payload;      
-      return {
-        ...state,
-        cart: state.cart.filter(prod => prod.id != removeId)
-      }
-    case I_AGREE:
-      const { init } = action.payload;
-      return {
-        ...state,
-        isAgree: init ? !state.isAgree : false,
-      }
-    case FETCH_ORDER_SUCCESS:
-      return {
-        ...state,
-        cart: [],
-        orderSuccess: true,
-        loadingOrder: false,
-        address: '',
-        phone: '',
-      }
+      }            
     case ERROR_NULL:
       return {
         ...state,

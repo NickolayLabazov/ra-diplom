@@ -6,9 +6,9 @@ import ProductInCart from './ProductInCart.jsx';
 
 import { changeForm, iAgree, fetchOrder } from '../actions/actionCreators';
 
-export default function Cart() {
+export default function CartPage() {
     const dispatch = useDispatch();
-    const { orderSuccess, cart, address, phone, isAgree, loadingOrder } = useSelector(state => state.storeState);
+    const { orderSuccess, cart, address, phone, isAgree, loadingOrder } = useSelector(state => state.cartState);
 
     useEffect(() => {
         dispatch(iAgree(false));
@@ -16,11 +16,11 @@ export default function Cart() {
         dispatch(changeForm('', 'address'));
     }, [dispatch])
 
-    const inputChange = (event) => {
+    const handleInputChange = (event) => {
         dispatch(changeForm(event.target.value, event.target.name))
     }
 
-    const agree = () => {
+    const handleAgree = () => {
         dispatch(iAgree(true))
     }
 
@@ -86,14 +86,14 @@ export default function Cart() {
                                             <form onSubmit={formSubmit} className="card-body">
                                                 <div className="form-group">
                                                     <label for="phone">Телефон</label>
-                                                    <input onChange={inputChange} value={phone} name="phone" className="form-control" id="phone" placeholder="Ваш телефон" />
+                                                    <input onChange={handleInputChange} value={phone} name="phone" className="form-control" id="phone" placeholder="Ваш телефон" />
                                                 </div>
                                                 <div className="form-group">
                                                     <label for="address">Адрес доставки</label>
-                                                    <input onChange={inputChange} value={address} name="address" className="form-control" id="address" placeholder="Адрес доставки" />
+                                                    <input onChange={handleInputChange} value={address} name="address" className="form-control" id="address" placeholder="Адрес доставки" />
                                                 </div>
                                                 <div className="form-group form-check">
-                                                    <input onClick={agree} type="checkbox" className="form-check-input" id="agreement" />
+                                                    <input onClick={handleAgree} type="checkbox" className="form-check-input" id="agreement" />
                                                     <label className="form-check-label" for="agreement">Согласен с правилами доставки</label>
                                                 </div>
                                                 <button type="submit" className="btn btn-outline-secondary">Оформить</button>
