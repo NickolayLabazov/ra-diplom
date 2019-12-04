@@ -70,9 +70,9 @@ export default function CartPage() {
 
                                     </thead>
                                     <tbody>
-                                        {cart.map(prod => <ProductInCart prod={prod} />)}
+                                        {cart.map(prod => <ProductInCart prod={prod} key={prod.id} />)}
                                         <tr>
-                                            <td colspan="5" className="text-right">Общая стоимость</td>
+                                            <td colSpan="5" className="text-right">Общая стоимость</td>
                                             <td>{totalPrice} руб</td>
                                         </tr>
                                     </tbody>
@@ -82,19 +82,19 @@ export default function CartPage() {
                                 {orderSuccess ? <h2 className="text-center">Заказ принят</h2> :
                                     <>
                                         <h2 className="text-center">Оформить заказ</h2>
-                                        <div className="card" style={{ 'max-width': '30rem', 'margin': '0 auto', }}>
+                                        <div className="card" style={{ 'maxWidth': '30rem', 'margin': '0 auto', }}>
                                             <form onSubmit={formSubmit} className="card-body">
                                                 <div className="form-group">
-                                                    <label for="phone">Телефон</label>
+                                                    <label htmlFor="phone">Телефон</label>
                                                     <input onChange={handleInputChange} value={phone} name="phone" className="form-control" id="phone" placeholder="Ваш телефон" />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="address">Адрес доставки</label>
+                                                    <label htmlFor="address">Адрес доставки</label>
                                                     <input onChange={handleInputChange} value={address} name="address" className="form-control" id="address" placeholder="Адрес доставки" />
                                                 </div>
                                                 <div className="form-group form-check">
                                                     <input onClick={handleAgree} type="checkbox" className="form-check-input" id="agreement" />
-                                                    <label className="form-check-label" for="agreement">Согласен с правилами доставки</label>
+                                                    <label className="form-check-label" htmlFor="agreement">Согласен с правилами доставки</label>
                                                 </div>
                                                 <button type="submit" className="btn btn-outline-secondary">Оформить</button>
                                             </form>

@@ -16,8 +16,9 @@ export default function CatalogCategories(props) {
         <nav className="catalog-categories nav justify-content-center">
             {categories.map(cat =>
                 <NavLink
+                    key={cat.id}
                     className="nav-link"
-                    activeClass='active'
+                    activeclass='active'
                     to={`${props.url}${cat.id}`}
                     onClick={() => selectCat(cat.id)}>{cat.title}
                 </NavLink>
