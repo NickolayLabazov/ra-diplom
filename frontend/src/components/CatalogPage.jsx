@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import CatalogCategories from './CatalogCategories.jsx';
 import ProductBox from './ProductBox.jsx';
-import BtnLoad from './BtnLoad.jsx';
+import ActionButton from './ActionButton.jsx';
 
 import { changeForm, fetchSearch } from '../actions/actionCreators';
 
@@ -37,7 +37,7 @@ export default function CatalogPage() {
                                     <ProductBox products={catalog} />
                                 </>
                             }
-                            <BtnLoad />
+                            <ActionButton />
                         </section>
                     </div>
                 </div>

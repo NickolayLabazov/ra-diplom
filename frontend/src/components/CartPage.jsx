@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Preloader from './Preloader.jsx';
 import ProductInCart from './ProductInCart.jsx';
 
-import { changeForm, iAgree, fetchOrder } from '../actions/actionCreators';
+import { changeForm, setAgreeAgrements, fetchOrder } from '../actions/actionCreators';
 
 export default function CartPage() {
     const dispatch = useDispatch();
     const { orderSuccess, cart, address, phone, isAgree, loadingOrder } = useSelector(state => state.cartState);
 
     useEffect(() => {
-        dispatch(iAgree(false));
+        dispatch(setAgreeAgrements(false));
         dispatch(changeForm('', 'phone'));
         dispatch(changeForm('', 'address'));
     }, [dispatch])
@@ -21,7 +21,7 @@ export default function CartPage() {
     }
 
     const handleAgree = () => {
-        dispatch(iAgree(true))
+        dispatch(setAgreeAgrements(true))
     }
 
     const formSubmit = (event) => {
@@ -32,10 +32,10 @@ export default function CartPage() {
                     phone: phone,
                     address: address,
                 },
-                items: cart.map(prod =>
+                items: cart.map(product =>
                     ({
                         id: 1,
-                        price: prod.price,
+                        price: product.price,
                         count: 1,
                     })
                 ),
@@ -43,10 +43,9 @@ export default function CartPage() {
             dispatch(fetchOrder(order));
         }
     }
-
-    let totalPrice = 0;
-    cart.map(prod => totalPrice = totalPrice + prod.price * prod.number);
-
+   
+    const totalPrice = cart.reduce((total, current) => {return total + current.price * current.number}, 0)
+   
     return (
         <>
             {loadingOrder ? <Preloader /> :
@@ -70,7 +69,7 @@ export default function CartPage() {
 
                                     </thead>
                                     <tbody>
-                                        {cart.map(prod => <ProductInCart prod={prod} key={prod.id} />)}
+                                        {cart.map(product => <ProductInCart prod={product} key={product.id} />)}
                                         <tr>
                                             <td colSpan="5" className="text-right">Общая стоимость</td>
                                             <td>{totalPrice} руб</td>

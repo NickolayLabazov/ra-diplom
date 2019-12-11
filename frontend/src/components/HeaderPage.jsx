@@ -3,20 +3,20 @@ import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import headerLogo from '../img/header-logo.png';
-import { changeHeaderSearch, changeForm, fetchSearch, errorNull } from '../actions/actionCreators';
+import { changeHeaderSearch, changeForm, fetchSearch, resetError } from '../actions/actionCreators';
 
 export default function HeaderPage() {
     const dispatch = useDispatch();
     const { headerSearch, formValue, category } = useSelector(state => state.storeState);
     const { cart } = useSelector(state => state.cartState);
 
-    let active = {
+    const active = {
         color: '#ff0000',
     }
 
     const search = () => {
         dispatch(changeHeaderSearch());
-        dispatch(errorNull());
+        dispatch(resetError());
         if (!headerSearch && formValue != '') {
             dispatch(fetchSearch(category, formValue))
         }
@@ -30,8 +30,8 @@ export default function HeaderPage() {
         event.preventDefault();
     }
 
-    const reseError = () => {
-        dispatch(errorNull());
+    const reset = () => {
+        dispatch(resetError());
     }
 
     return (
@@ -40,15 +40,15 @@ export default function HeaderPage() {
                 <div className="row">
                     <div className="col">
                         <nav className="navbar navbar-expand-sm navbar-light bg-light">
-                            <Link className="navbar-brand" to="/" onClick={reseError}>
+                            <Link className="navbar-brand" to="/" onClick={reset}>
                                 <img src={headerLogo} alt="Bosa Noga" />
                             </Link>
                             <div className="collapase navbar-collapse" id="navbarMain">
                                 <nav className="navbar-nav mr-auto">
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/" onClick={reseError}>Главная</NavLink>
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={reseError}>Каталог</NavLink>
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={reseError}>О магазине</NavLink>
-                                    <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={reseError}>Контакты</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/" onClick={reset}>Главная</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={reset}>Каталог</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={reset}>О магазине</NavLink>
+                                    <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={reset}>Контакты</NavLink>
                                 </nav>
                                 <div>
                                     <div className="header-controls-pics">
@@ -58,7 +58,7 @@ export default function HeaderPage() {
                                         }
 
 
-                                        <Link to='/cart' className="header-controls-pic header-controls-cart" onClick={reseError}>
+                                        <Link to='/cart' className="header-controls-pic header-controls-cart" onClick={reset}>
                                             {cart.length > 0 ?
                                                 <div className="header-controls-cart-full">{cart.length}</div> : null}
                                             <div className="header-controls-cart-menu"></div>

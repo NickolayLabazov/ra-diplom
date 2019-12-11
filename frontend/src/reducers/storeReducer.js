@@ -9,9 +9,9 @@ import {
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATALOG_MORE,
   CHANGE_CATEGORY,
-  CHANGE_HEADER_SEARCH,   
+  CHANGE_HEADER_SEARCH,
   CHANGE_FORM,
-  ERROR_NULL
+  RESET_ERROR
 } from '../actions/actionCreators';
 
 const initialState = {
@@ -19,15 +19,15 @@ const initialState = {
   categories: [{
     id: 16,
     title: 'Все'
-  }],  
+  }],
   category: 16,
   catalog: [],
   formValue: '',
-  catalogValue: '', 
+  catalogValue: '',
   loadingTopSales: false,
-  loadingCatalog: false,    
+  loadingCatalog: false,
   btnLoadMore: true,
-  headerSearch: true, 
+  headerSearch: true,
   error: null,
 };
 
@@ -44,7 +44,7 @@ export default function storeReducer(state = initialState, action) {
         ...state,
         loadingCatalog: true,
         error: null,
-      }   
+      }
     case FETCH_TOP_FAILURE:
       const { errorTop } = action.payload;
       return {
@@ -58,7 +58,7 @@ export default function storeReducer(state = initialState, action) {
         ...state,
         loadingCatalog: false,
         error: errorCatalog
-      }    
+      }
     case FETCH_CATEGORIES_FAILURE:
       const { errorCategories } = action.payload;
       return {
@@ -80,12 +80,12 @@ export default function storeReducer(state = initialState, action) {
         catalog,
         loadingCatalog: false,
         error: null,
-      };    
+      };
     case FETCH_CATEGORIES_SUCCESS:
       const { categories } = action.payload;
       return {
         ...state,
-        categories: [...state.categories].concat(categories),
+        categories: [...state.categories, ...categories],
         error: null,
       };
     case FETCH_CATALOG_MORE:
@@ -108,26 +108,39 @@ export default function storeReducer(state = initialState, action) {
         btnLoadMore: true,
       }
     case CHANGE_HEADER_SEARCH:
-      return {
-        ...state,
-        headerSearch: !state.headerSearch,
-        catalogValue: state.catalogValue == '' ? state.formValue :
-          (state.formValue == '' ? state.catalogValue : state.formValue),
-        formValue: '',
+
+      if (state.catalogValue == '') {
+        return {
+          ...state,
+          catalogValue: state.formValue,
+          formValue: '',
+        }
+      } else if (state.formValue == '') {
+        return {
+          ...state,
+          catalogValue: state.catalogValue,
+          formValue: '',
+        }
+      } else {
+        return {
+          ...state,
+          catalogValue: state.state.formValue,
+          formValue: '',
+        }
       }
     case CHANGE_FORM:
       const { value, name } = action.payload;
       return {
         ...state,
         [name]: value,
-      }            
-    case ERROR_NULL:
+      }
+    case RESET_ERROR:
       return {
         ...state,
         orderSuccess: false,
         error: null,
       }
-     
+
     default:
       return state;
   }

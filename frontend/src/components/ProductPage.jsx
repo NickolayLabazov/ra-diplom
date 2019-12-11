@@ -4,22 +4,22 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Preloader from './Preloader.jsx';
 
-import { productSize, increaseNumber, lowerNumber, addCart } from '../actions/actionCreators';
+import { setProductSize, incrementCount, decrementCount, addCart } from '../actions/actionCreators';
 
 export default function ProductPage() {
     const dispatch = useDispatch();   
-    const { product, selectSize, selectNumber, loadingProduct } = useSelector(state => state.cartState);
+    const { product, selectSize, selectCount, loadingProduct } = useSelector(state => state.cartState);
     
     const selectProductSize = (size) => {
-        dispatch(productSize(size))
+        dispatch(setProductSize(size))
     }
 
-    const increaseProductNumber = () => {
-        dispatch(increaseNumber())
+    const incrementProductCount = () => {
+        dispatch(incrementCount())
     }
 
-    const lowerProductNumber = () => {
-        dispatch(lowerNumber())
+    const decrementProductCount = () => {
+        dispatch(decrementCount())
     }
 
     const writeToCart = (prod) => {
@@ -30,7 +30,7 @@ export default function ProductPage() {
         id: product.id,
         title: product.title,
         size: selectSize,
-        number: selectNumber,
+        number: selectCount,
         price: product.price
     }
 
@@ -89,9 +89,9 @@ export default function ProductPage() {
                                             {product.sizes.filter(size => size.avalible = true).length > 0 ?
                                                 <>
                                                     <p>Количество: <span className="btn-group btn-group-sm pl-2">
-                                                        <button onClick={lowerProductNumber} className="btn btn-secondary">-</button>
-                                                        <span className="btn btn-outline-primary">{selectNumber}</span>
-                                                        <button onClick={increaseProductNumber} className="btn btn-secondary">+</button>
+                                                        <button onClick={decrementProductCount} className="btn btn-secondary">-</button>
+                                                        <span className="btn btn-outline-primary">{selectCount}</span>
+                                                        <button onClick={incrementProductCount} className="btn btn-secondary">+</button>
                                                     </span>
                                                     </p>
                                                     {selectSize != null ?

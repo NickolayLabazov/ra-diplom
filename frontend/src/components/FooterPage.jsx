@@ -3,17 +3,17 @@ import { NavLink } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import { errorNull } from '../actions/actionCreators';
+import { resetError } from '../actions/actionCreators';
 
 export default function FooterPage() {
     const dispatch = useDispatch();
 
-    let active = {
+    const active = {
         color: '#ff0000',
     }
 
-    const resetError = () => {
-        dispatch(errorNull());
+    const reset = () => {
+        dispatch(resetError());
     }
 
     return (
@@ -24,13 +24,13 @@ export default function FooterPage() {
                         <h5>Информация</h5>
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={resetError}>Каталог</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/catalog" onClick={reset}>Каталог</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={resetError}>О магазине</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/about" onClick={reset}>О магазине</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={resetError}>Контакты</NavLink>
+                                <NavLink className="nav-link" activeStyle={active} exact to="/contacts" onClick={reset}>Контакты</NavLink>
                             </li>
                         </ul>
                     </section>

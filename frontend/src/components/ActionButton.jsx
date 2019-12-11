@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLoadMore } from '../actions/actionCreators';
 
-export default function BtnLoad() {
+export default function ActionButton() {
     const dispatch = useDispatch();
     const { catalog, btnLoadMore, loadingCatalog, category } = useSelector(state => state.storeState);
 

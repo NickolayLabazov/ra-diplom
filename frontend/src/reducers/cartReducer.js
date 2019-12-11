@@ -1,18 +1,18 @@
 import {
-  I_AGREE,
+  SET_AGREE,
   FETCH_ORDER_SUCCESS,
   FETCH_ORDER_REQUEST,
   FETCH_ORDER_FAILURE,
-  ERROR_NULL,
+  RESET_ERROR,
   CHANGE_FORM,
   FETCH_PRODUCT_REQUEST,
   FETCH_PRODUCT_SUCCESS,
   FETCH_PRODUCT_FAILURE,
   ADD_CART,
   REMOVE_PROD,
-  PRODUCT_SIZE,
-  INCREASE_NUMBER,
-  LOWER_NUMBER,
+  SET_PRODUCT_SIZE,
+  INCREMENT_COUNT,
+  DECREMENT_COUNT,
 } from '../actions/actionCreators';
 
 const initialState = {
@@ -23,7 +23,7 @@ const initialState = {
   cart: [],
   loadingOrder: false,
   selectSize: null,
-  selectNumber: 1,
+  selectCount: 1,
   product: {},
   loadingProduct: false,
   error: null,
@@ -46,7 +46,7 @@ export default function storeReducer(state = initialState, action) {
         address: '',
         phone: '',
       }
-    case I_AGREE:
+    case SET_AGREE:
       const { init } = action.payload;
       return {
         ...state,
@@ -61,7 +61,7 @@ export default function storeReducer(state = initialState, action) {
         address: '',
         phone: '',
       }
-    case ERROR_NULL:
+    case RESET_ERROR:
       return {
         ...state,
         orderSuccess: false,
@@ -81,33 +81,44 @@ export default function storeReducer(state = initialState, action) {
         loadingProduct: false,
         error: null,
         selectSize: null,
-        selectNumber: 1,
+        selectCount: 1,
       };
     case ADD_CART:
-      const { prod } = action.payload;
-      const index = state.cart.indexOf(state.cart.filter(o => o.id == prod.id).filter(o => o.size = prod.size)[0]);
+      const { newProduct } = action.payload;
+      const index = state.cart.indexOf(state.cart.filter(item => item.id == newProduct.id).filter(item => item.size = newProduct.size)[0]);
       if (index === -1) {
         return {
           ...state,
-          cart: state.cart.concat([prod]),
+          cart: state.cart.concat([newProduct]),
           selectSize: null,
-          selectNumber: 1,
+          selectCount: 1,
         }
       } else {
         return {
           ...state,
-          cart: state.cart.map(product =>
-            (product.id === prod.id) && (product.size === prod.size) ?
-              { ...product, number: prod.number + product.number } : product),
-          selectSize: null,
-          selectNumber: 1,
+          cart: state.cart.map(product => {
+            if (product.id === newProduct.id && product.size === newProduct.size) {
+              return {
+                ...product,
+                number: newProduct.number + product.number,
+                selectSize: null,
+                selectCount: 1,
+              }
+            }
+            return {
+              product,
+              selectSize: null,
+              selectCount: 1,
+            };
+          }
+          )
         }
       }
     case REMOVE_PROD:
       const { removeId } = action.payload;
       return {
         ...state,
-        cart: state.cart.filter(prod => prod.id != removeId)
+        cart: state.cart.filter(item => item.id != removeId)
       }
     case FETCH_PRODUCT_REQUEST:
       return {
@@ -122,21 +133,21 @@ export default function storeReducer(state = initialState, action) {
         loadingProduct: false,
         error: errorProduct
       }
-    case PRODUCT_SIZE:
+    case SET_PRODUCT_SIZE:
       const { size } = action.payload;
       return {
         ...state,
         selectSize: size,
       }
-    case INCREASE_NUMBER:
+    case INCREMENT_COUNT:
       return {
         ...state,
-        selectNumber: state.selectNumber < 10 ? state.selectNumber + 1 : state.selectNumber,
+        selectCount: state.selectCount < 10 ? state.selectCount + 1 : state.selectCount,
       }
-    case LOWER_NUMBER:
+    case DECREMENT_COUNT:
       return {
         ...state,
-        selectNumber: state.selectNumber > 1 ? state.selectNumber - 1 : state.selectNumber,
+        selectCount: state.selectCount > 1 ? state.selectCount - 1 : state.selectCount,
       }
 
     default:

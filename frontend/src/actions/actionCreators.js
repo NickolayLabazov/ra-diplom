@@ -14,18 +14,18 @@ export const FETCH_CATALOG_MORE = 'FETCH_CATALOG_MORE';
 export const CHANGE_CATEGORY = 'CHANGE_CATEGORY';
 export const CHANGE_HEADER_SEARCH = 'CHANGE_HEADER_SEARCH';
 export const CHANGE_FORM = 'CHANGE_FORM';
-export const PRODUCT_SIZE = 'PRODUCT_SIZE';
-export const INCREASE_NUMBER = 'INCREASE_NUMBER';
-export const LOWER_NUMBER = 'LOWER_NUMBER';
+export const SET_PRODUCT_SIZE = 'SET_PRODUCT_SIZE';
+export const INCREMENT_COUNT = 'INCREMENT_COUNT';
+export const DECREMENT_COUNT = 'DECREMENT_COUNT';
 export const ADD_CART = 'ADD_CART';
 export const REMOVE_PROD = 'REMOVE_PROD';
-export const I_AGREE = 'I_AGREE';
+export const SET_AGREE = 'SET_AGREE';
 export const FETCH_ORDER_REQUEST = 'FETCH_ORDER_REQUEST';
 export const FETCH_ORDER_FAILURE = 'FETCH_ORDER_FAILURE';
-export const ERROR_NULL = 'ERROR_NULL';
+export const RESET_ERROR = 'RESET_ERROR';
 
-export const errorNull = () => ({
-  type: ERROR_NULL,
+export const resetError = () => ({
+  type: RESET_ERROR,
 });
 
 export const fetchTopRequest = () => ({
@@ -130,19 +130,19 @@ export const changeForm = (value, name) => ({
   },
 });
 
-export const productSize = size => ({
-  type: PRODUCT_SIZE,
+export const setProductSize = size => ({
+  type: SET_PRODUCT_SIZE,
   payload: {
     size,
   },
 });
 
-export const increaseNumber = () => ({
-  type: INCREASE_NUMBER  
+export const incrementCount = () => ({
+  type: INCREMENT_COUNT  
 });
 
-export const lowerNumber = () => ({
-  type: LOWER_NUMBER  
+export const decrementCount = () => ({
+  type: DECREMENT_COUNT  
 });
 
 export const fetchTop = () => async (dispatch) => {
@@ -320,10 +320,10 @@ export const fetchCatalogMore = catalogMore => ({
   },
 });
 
-export const addCart = prod => ({
+export const addCart = newProduct => ({
   type: ADD_CART,
   payload: {
-    prod,
+    newProduct,
   },
 });
 
@@ -334,8 +334,8 @@ export const removeProd = removeId => ({
   },
 });
 
-export const iAgree = (init) => ({
-  type: I_AGREE, 
+export const setAgreeAgrements = (init) => ({
+  type: SET_AGREE, 
   payload: {
     init,
   },

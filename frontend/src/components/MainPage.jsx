@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Preloader from './Preloader.jsx';
 import ProductBox from './ProductBox.jsx';
 import CatalogCategories from './CatalogCategories.jsx';
-import BtnLoad from './BtnLoad.jsx';
+import ActionButton from './ActionButton.jsx';
 
 export default function MainPage() {
     const { loadingTopSales, loadingCatalog, topSales, catalog, } = useSelector(state => state.storeState);
@@ -23,7 +23,7 @@ export default function MainPage() {
                                 <>
                                     <CatalogCategories url='/' />
                                     <ProductBox products={catalog} />
-                                    <BtnLoad />
+                                    <ActionButton />
                                 </>
                             }
                         </section>
