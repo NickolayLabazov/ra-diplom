@@ -85,8 +85,18 @@ export default function storeReducer(state = initialState, action) {
       };
     case ADD_CART:
       const { newProduct } = action.payload;
+      if(!newProduct){
+        return {
+          ...state,
+          cart: [],
+          selectSize: null,
+          selectCount: 1,
+        }
+      }
       const index = state.cart.indexOf(state.cart.filter(item => item.id == newProduct.id).filter(item => item.size = newProduct.size)[0]);
       if (index === -1) {
+        let cartLocal = JSON.stringify(state.cart.concat([newProduct]));        
+        localStorage.setItem('cart', cartLocal);
         return {
           ...state,
           cart: state.cart.concat([newProduct]),
@@ -94,28 +104,32 @@ export default function storeReducer(state = initialState, action) {
           selectCount: 1,
         }
       } else {
-        return {
-          ...state,
-          cart: state.cart.map(product => {
-            if (product.id === newProduct.id && product.size === newProduct.size) {
-              return {
-                ...product,
-                number: newProduct.number + product.number,
-                selectSize: null,
-                selectCount: 1,
-              }
-            }
+        let newCart = state.cart.map(product => {
+          if (product.id === newProduct.id && product.size === newProduct.size) {
             return {
-              product,
+              ...product,
+              number: newProduct.number + product.number,
               selectSize: null,
               selectCount: 1,
-            };
+            }
           }
-          )
+          return {
+            product,
+            selectSize: null,
+            selectCount: 1,
+          };
+        })
+        let cartLocal = JSON.stringify(newCart);        
+        localStorage.setItem('cart', cartLocal);
+        return {
+          ...state,
+          cart: newCart,           
         }
       }
     case REMOVE_PROD:
-      const { removeId } = action.payload;
+      const { removeId } = action.payload;      
+      let cartLocal = JSON.stringify(state.cart.filter(item => item.id != removeId));        
+      localStorage.setItem('cart', cartLocal);
       return {
         ...state,
         cart: state.cart.filter(item => item.id != removeId)

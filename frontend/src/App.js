@@ -14,21 +14,31 @@ import BannerPage from './components/BannerPage.jsx';
 import ProductPage from './components/ProductPage.jsx';
 import CartPage from './components/CartPage.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
+import { stateStoreSelector } from './components/stateStoreSelector.js';
+import { cartStoreSelector } from './components/cartStoreSelector.js';
 
-import { fetchTop, fetchCatalog, fetchCategories } from './actions/actionCreators';
+import { fetchTop, fetchCatalog, fetchCategories, addCart } from './actions/actionCreators';
 
 export default function App() {
     const dispatch = useDispatch();
-    const { error } = useSelector(state => state.storeState);
-   
+    const { error } = useSelector(state => stateStoreSelector(state));
+    const { cart, product } = useSelector(state => cartStoreSelector(state));
+
     useEffect(() => {
         dispatch(fetchTop());
         dispatch(fetchCatalog());
         dispatch(fetchCategories());
+        if (cart.length === 0) {
+            try {
+                for (let product of JSON.parse(localStorage.getItem('cart'))) {
+                    dispatch(addCart(product))
+                }
+            } catch (e) { }
+        }
     }, [dispatch])
-    
+
     return (
-        <Router>            
+        <Router>
             <Route path='/' component={HeaderPage} />
             <Route path='/' component={BannerPage} />
             {error === null ?
@@ -36,7 +46,7 @@ export default function App() {
                     <Route path='/about' component={AboutPage} />
                     <Route path='/contacts' component={ContactsPage} />
                     <Route path='/cart' component={CartPage} />
-                    <Route path={`/catalog/:productId`} component={ProductPage} />
+                    <Route path={`/catalog/${product.id}`} component={ProductPage} />
                     <Route path='/catalog' component={CatalogPage} />
                     <Route path='/' component={MainPage} />
                 </Switch>
@@ -61,7 +71,7 @@ import './App.css';
 
 function App() {
   return (
-    <RouterPage/>     
+    <RouterPage/>
   );
 }
 

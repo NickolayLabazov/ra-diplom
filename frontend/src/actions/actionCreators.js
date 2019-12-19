@@ -309,6 +309,10 @@ export const fetchOrder = (order) => async (dispatch) => {
       dispatch(fetchOrderSuccess());      
     } catch (error) {
       dispatch(fetchOrderFailure(error.message));
+    } finally {
+      localStorage.clear();
+      dispatch(addCart(false));
+      
     }
   
 };

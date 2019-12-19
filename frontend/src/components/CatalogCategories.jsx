@@ -4,8 +4,10 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCatalogCategory } from '../actions/actionCreators';
 
+import {stateStoreSelector} from './stateStoreSelector.js';
+
 export default function CatalogCategories(props) {
-    const { categories } = useSelector(state => state.storeState);
+    const { categories } = useSelector(state => stateStoreSelector(state));
     const dispatch = useDispatch();
 
     const selectCat = (id) => {
@@ -20,6 +22,7 @@ export default function CatalogCategories(props) {
                     className="nav-link"
                     activeclass='active'
                     to={`${props.url}${cat.id}`}
+                    //to={`${props.url}`}
                     onClick={() => selectCat(cat.id)}>{cat.title}
                 </NavLink>
             )}

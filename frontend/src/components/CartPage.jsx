@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Preloader from './Preloader.jsx';
 import ProductInCart from './ProductInCart.jsx';
 
-import { changeForm, setAgreeAgrements, fetchOrder } from '../actions/actionCreators';
+import { changeForm, setAgreeAgrements, fetchOrder, addCart } from '../actions/actionCreators';
 
 export default function CartPage() {
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function CartPage() {
     useEffect(() => {
         dispatch(setAgreeAgrements(false));
         dispatch(changeForm('', 'phone'));
-        dispatch(changeForm('', 'address'));
+        dispatch(changeForm('', 'address'));      
     }, [dispatch])
 
     const handleInputChange = (event) => {
@@ -26,7 +26,7 @@ export default function CartPage() {
 
     const formSubmit = (event) => {
         event.preventDefault();
-        if (phone !== '' && address !== '' && cart.length !== 0 && isAgree) {            
+        if (phone !== '' && address !== '' && cart.length !== 0 && isAgree) {
             const order = {
                 owner: {
                     phone: phone,
@@ -43,9 +43,9 @@ export default function CartPage() {
             dispatch(fetchOrder(order));
         }
     }
-   
-    const totalPrice = cart.reduce((total, current) => {return total + current.price * current.number}, 0)
-   
+
+    const totalPrice = cart.reduce((total, current) => { return total + current.price * current.number }, 0)
+
     return (
         <>
             {loadingOrder ? <Preloader /> :

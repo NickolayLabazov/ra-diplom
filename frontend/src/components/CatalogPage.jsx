@@ -4,12 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import CatalogCategories from './CatalogCategories.jsx';
 import ProductBox from './ProductBox.jsx';
 import ActionButton from './ActionButton.jsx';
+import { stateStoreSelector } from './stateStoreSelector.js';
 
 import { changeForm, fetchSearch } from '../actions/actionCreators';
 
 export default function CatalogPage() {
     const dispatch = useDispatch();
-    const { catalog, catalogValue, category } = useSelector(state => state.storeState);
+    const { catalog, catalogValue, category } = useSelector(state => stateStoreSelector(state));
 
     const handleInputChange = (event) => {
         dispatch(changeForm(event.target.value, event.target.name))
