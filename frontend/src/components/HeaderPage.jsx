@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import headerLogo from '../img/header-logo.png';
 import { changeHeaderSearch, changeForm, fetchSearch, resetError } from '../actions/actionCreators';
 
+import { stateCartSelector } from './stateCartSelector.js';
+
 export default function HeaderPage() {
     const dispatch = useDispatch();
     const { headerSearch, formValue, category } = useSelector(state => state.storeState);
-    const { cart } = useSelector(state => state.cartState);
+    const { cart } = useSelector(state => stateCartSelector(state));
 
     const active = {
         color: '#ff0000',
@@ -16,8 +18,8 @@ export default function HeaderPage() {
 
     const search = () => {
         dispatch(changeHeaderSearch());
-        dispatch(resetError());
-        if (!headerSearch && formValue != '') {
+        dispatch(resetError());        
+        if (!headerSearch && formValue !== '') {
             dispatch(fetchSearch(category, formValue))
         }
     }
@@ -52,7 +54,7 @@ export default function HeaderPage() {
                                 </nav>
                                 <div>
                                     <div className="header-controls-pics">
-                                        {(!headerSearch && formValue != '') ?
+                                        {(!headerSearch && formValue !== '') ?
                                             <NavLink onClick={search} className="header-controls-pic header-controls-search" exact to="/catalog"></NavLink> :
                                             <div onClick={search} data-id="search-expander" className="header-controls-pic header-controls-search"></div>
                                         }

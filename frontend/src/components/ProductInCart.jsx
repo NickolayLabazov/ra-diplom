@@ -3,8 +3,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeProd } from '../actions/actionCreators';
 
+import { stateCartSelector } from './stateCartSelector.js';
+
 export default function ProductInCart(props) {    
-    const { cart } = useSelector(state => state.cartState);
+    const { cart } = useSelector(state => stateCartSelector(state));
     const dispatch = useDispatch();
 
     const removeProduct = (id) => {

@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Preloader from './Preloader.jsx';
+import { stateCartSelector } from './stateCartSelector.js';
 
 import { setProductSize, incrementCount, decrementCount, addCart } from '../actions/actionCreators';
 
 export default function ProductPage() {
     const dispatch = useDispatch();   
-    const { product, selectSize, selectCount, loadingProduct } = useSelector(state => state.cartState);
+    const { product, selectSize, selectCount, loadingProduct } = useSelector(state => stateCartSelector(state));
     
     const selectProductSize = (size) => {
         dispatch(setProductSize(size))
@@ -82,7 +83,7 @@ export default function ProductPage() {
                                                 <span
                                                     key={size.size}
                                                     onClick={() => selectProductSize(size.size)}
-                                                    className={`catalog-item-size ${size.size == selectSize ? 'selected' : ''}`}>
+                                                    className={`catalog-item-size ${size.size === selectSize ? 'selected' : ''}`}>
                                                     {size.size}
                                                 </span>)}
                                             </p>

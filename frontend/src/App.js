@@ -15,14 +15,14 @@ import ProductPage from './components/ProductPage.jsx';
 import CartPage from './components/CartPage.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
 import { stateStoreSelector } from './components/stateStoreSelector.js';
-import { cartStoreSelector } from './components/cartStoreSelector.js';
+import { stateCartSelector } from './components/stateCartSelector.js';
 
 import { fetchTop, fetchCatalog, fetchCategories, addCart } from './actions/actionCreators';
 
 export default function App() {
     const dispatch = useDispatch();
     const { error } = useSelector(state => stateStoreSelector(state));
-    const { cart, product } = useSelector(state => cartStoreSelector(state));
+    const { cart, product } = useSelector(state => stateCartSelector(state));
 
     useEffect(() => {
         dispatch(fetchTop());
@@ -35,6 +35,7 @@ export default function App() {
                 }
             } catch (e) { }
         }
+        // eslint-disable-next-line
     }, [dispatch])
 
     return (

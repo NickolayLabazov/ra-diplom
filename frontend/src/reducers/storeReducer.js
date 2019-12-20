@@ -109,25 +109,37 @@ export default function storeReducer(state = initialState, action) {
       }
     case CHANGE_HEADER_SEARCH:
 
-      if (state.catalogValue == '') {
+    if(state.headerSearch){
+      return {
+        ...state,
+        headerSearch: !state.headerSearch
+      }
+    }else{
+      if (state.catalogValue === '') {
         return {
           ...state,
           catalogValue: state.formValue,
           formValue: '',
+          headerSearch: !state.headerSearch
         }
-      } else if (state.formValue == '') {
+      } else if (state.formValue === '') {
         return {
           ...state,
           catalogValue: state.catalogValue,
           formValue: '',
+          headerSearch: !state.headerSearch
         }
       } else {
         return {
           ...state,
           catalogValue: state.state.formValue,
           formValue: '',
+          headerSearch: !state.headerSearch
         }
       }
+    }
+
+
     case CHANGE_FORM:
       const { value, name } = action.payload;
       return {

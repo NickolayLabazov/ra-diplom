@@ -199,7 +199,7 @@ export const fetchCatalogCategory = (id) => async (dispatch) => {
   dispatch(fetchCatalogRequest());
   dispatch(changeCategory(id));  
 
-  if (id == 16) {
+  if (id === 16) {
     dispatch(fetchCatalog());
   } else {
     try {
@@ -220,7 +220,7 @@ export const fetchCatalogCategory = (id) => async (dispatch) => {
 export const fetchLoadMore = (catalogLength, category) => async (dispatch) => {
   dispatch(fetchCatalogRequest());
 
-  if(category==16){
+  if(category===16){
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/items?offset=${catalogLength}`);
   
@@ -253,7 +253,7 @@ export const fetchLoadMore = (catalogLength, category) => async (dispatch) => {
 export const fetchSearch = (category, value) => async (dispatch) => {
   dispatch(fetchCatalogRequest());  
 
-  if(category==16){
+  if(category===16){
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/items?q=${value}`);  
       if (!response.ok) {

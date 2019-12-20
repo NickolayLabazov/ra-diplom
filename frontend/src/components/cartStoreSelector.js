@@ -1,1 +1,0 @@
-export const cartStoreSelector = state => state.cartState;

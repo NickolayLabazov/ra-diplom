@@ -93,7 +93,7 @@ export default function storeReducer(state = initialState, action) {
           selectCount: 1,
         }
       }
-      const index = state.cart.indexOf(state.cart.filter(item => item.id == newProduct.id).filter(item => item.size = newProduct.size)[0]);
+      const index = state.cart.indexOf(state.cart.filter(item => item.id === newProduct.id).filter(item => item.size === newProduct.size)[0]);
       if (index === -1) {
         let cartLocal = JSON.stringify(state.cart.concat([newProduct]));        
         localStorage.setItem('cart', cartLocal);
@@ -128,11 +128,11 @@ export default function storeReducer(state = initialState, action) {
       }
     case REMOVE_PROD:
       const { removeId } = action.payload;      
-      let cartLocal = JSON.stringify(state.cart.filter(item => item.id != removeId));        
+      let cartLocal = JSON.stringify(state.cart.filter(item => item.id !== removeId));        
       localStorage.setItem('cart', cartLocal);
       return {
         ...state,
-        cart: state.cart.filter(item => item.id != removeId)
+        cart: state.cart.filter(item => item.id !== removeId)
       }
     case FETCH_PRODUCT_REQUEST:
       return {

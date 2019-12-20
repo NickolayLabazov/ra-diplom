@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Preloader from './Preloader.jsx';
 import ProductInCart from './ProductInCart.jsx';
+import { stateCartSelector } from './stateCartSelector.js';
 
-import { changeForm, setAgreeAgrements, fetchOrder, addCart } from '../actions/actionCreators';
+
+import { changeForm, setAgreeAgrements, fetchOrder } from '../actions/actionCreators';
 
 export default function CartPage() {
     const dispatch = useDispatch();
-    const { orderSuccess, cart, address, phone, isAgree, loadingOrder } = useSelector(state => state.cartState);
+    const { orderSuccess, cart, address, phone, isAgree, loadingOrder } = useSelector(state => stateCartSelector(state));
 
     useEffect(() => {
         dispatch(setAgreeAgrements(false));

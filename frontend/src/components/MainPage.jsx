@@ -5,9 +5,11 @@ import Preloader from './Preloader.jsx';
 import ProductBox from './ProductBox.jsx';
 import CatalogCategories from './CatalogCategories.jsx';
 import ActionButton from './ActionButton.jsx';
+import { stateStoreSelector } from './stateStoreSelector.js';
+
 
 export default function MainPage() {
-    const { loadingTopSales, loadingCatalog, topSales, catalog, } = useSelector(state => state.storeState);
+    const { loadingTopSales, loadingCatalog, topSales, catalog, } = useSelector(state => stateStoreSelector(state));
     return (
         <>
             <main className="container">
